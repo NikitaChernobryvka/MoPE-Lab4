@@ -53,7 +53,6 @@
 
 .button-primary:pressed {
     -fx-background-color: #3b754f;
-    -fx-translate-y: 1px;
 }
 
 .button-secondary {
@@ -70,7 +69,6 @@
 
 .button-secondary:pressed {
     -fx-background-color: #657a6b;
-    -fx-translate-y: 1px;
 }
 
 .button-warning {
@@ -86,7 +84,6 @@
 }
 .button-warning:pressed {
     -fx-background-color: #a84343;
-    -fx-translate-y: 1px;
 }
 
 .input-label {
@@ -99,7 +96,8 @@
 
 .error-label {
     -fx-text-fill: #e05c5c;
-    -fx-font-size: 13px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }
 
 .default-color0. chart-line-symbol {

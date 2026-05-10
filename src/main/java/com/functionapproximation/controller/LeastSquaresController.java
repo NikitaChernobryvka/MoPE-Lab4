@@ -13,9 +13,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
@@ -53,7 +51,7 @@ public class LeastSquaresController {
 
     @FXML private void onCalculate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
         leastSquaresChart.setCreateSymbols(true);
@@ -66,14 +64,12 @@ public class LeastSquaresController {
         addPointsSeries(points, result.getResiduals());
         fillCoefficientsTable(result.getCoefficients());
 
-        Platform.runLater(() -> {
-            fixLegendOrientation(leastSquaresChart);
-        });
+        Platform.runLater(() -> fixLegendOrientation(leastSquaresChart));
     }
 
     @FXML private void onAnimate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
 
@@ -119,6 +115,18 @@ public class LeastSquaresController {
         animationTimeline.play();
     }
 
+    private boolean validatePoints(List<Point> points) {
+        if (points.size() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Помилка");
+            alert.setHeaderText(null);
+            alert.setContentText("Спочатку введіть хоча б 2 точки на вкладці 'Введення точок'");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
     private void addPopoverToSeries(XYChart.Series<Number, Number> series, double[] residuals) {
         for (int i = 0; i < series.getData().size(); i++) {
             XYChart.Data<Number, Number> data = series.getData().get(i);
@@ -133,7 +141,7 @@ public class LeastSquaresController {
             popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
 
             Label content = new Label(
-                    String.format("x = %.4f\ny = %.4f\nrᵢ = %.4f",
+                    String.format("x = %.4f\ny = %.4f\nri = %.4f",
                             data.getXValue().doubleValue(),
                             data.getYValue().doubleValue(),
                             residual)

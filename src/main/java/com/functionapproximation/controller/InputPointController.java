@@ -55,7 +55,7 @@ public class InputPointController {
 
             for (Point p : pointsList) {
                 if (p.getX() == x) {
-                    showError("Точка з таким значенням x вже існує!");
+                    showError("Точка з таким значенням x вже існує");
                     return;
                 }
             }
@@ -69,13 +69,13 @@ public class InputPointController {
             xField.requestFocus();
 
         } catch (NumberFormatException e) {
-            showError("Введіть коректні числові значення!");
+            showError("Введіть коректні числові значення");
         }
     }
 
     private boolean nameField_getText_isBlank() {
         if (xField.getText().isBlank() || yField.getText().isBlank()) {
-            showError("Заповніть всі поля!");
+            showError("Заповніть всі поля");
             return true;
         }
         return false;
@@ -87,7 +87,7 @@ public class InputPointController {
             pointsList.remove(selected);
             inputData.getPoints().remove(selected);
         } else {
-            showError("Оберіть точку для видалення!");
+            showError("Оберіть точку для видалення");
         }
     }
 

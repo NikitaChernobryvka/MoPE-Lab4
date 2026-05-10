@@ -32,7 +32,7 @@
             <TableColumn fx:id="yColumn" text="y" prefWidth="200"/>
         </columns>
         <placeholder>
-            <Label>Точки відсутні. Додайте точки вище.</Label>
+            <Label>Точки відсутні. Додайте точки через поля введення.</Label>
         </placeholder>
     </TableView>
 
@@ -41,5 +41,7 @@
         <Button styleClass="button-warning" onAction="#onClearPoints">Очистити всі</Button>
     </HBox>
 
-    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+    <HBox alignment="CENTER">
+        <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+    </HBox>
 </VBox>

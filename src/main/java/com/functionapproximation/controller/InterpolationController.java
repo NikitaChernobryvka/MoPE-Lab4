@@ -43,7 +43,7 @@ public class InterpolationController {
 
     @FXML private void onCalculate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
         interpolationChart.setCreateSymbols(true);
@@ -71,7 +71,7 @@ public class InterpolationController {
 
     @FXML private void onAnimate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
 
@@ -123,6 +123,18 @@ public class InterpolationController {
             });
         });
         animationTimeline.play();
+    }
+
+    private boolean validatePoints(List<Point> points) {
+        if (points.size() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Помилка");
+            alert.setHeaderText(null);
+            alert.setContentText("Спочатку введіть хоча б 2 точки на вкладці 'Введення точок'");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 
     private void addPopoverToSeries(XYChart.Series<Number, Number> series) {

@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Duration;
@@ -53,7 +54,7 @@ public class ResidualsController {
 
     @FXML private void onUpdate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
 
@@ -64,7 +65,7 @@ public class ResidualsController {
 
     @FXML private void onAnimate() {
         List<Point> points = inputData.getPoints();
-        if (points.size() < 2) return;
+        if (!validatePoints(points)) return;
 
         if (animationTimeline != null) animationTimeline.stop();
 
@@ -99,6 +100,18 @@ public class ResidualsController {
         );
         animationTimeline.setCycleCount(points.size());
         animationTimeline.play();
+    }
+
+    private boolean validatePoints(List<Point> points) {
+        if (points.size() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Помилка");
+            alert.setHeaderText(null);
+            alert.setContentText("Спочатку введіть хоча б 2 точки на вкладці 'Введення точок'");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 
     private void buildChart(List<Point> points, LeastSquaresResult result) {
