@@ -7,12 +7,15 @@ import com.functionapproximation.service.LagrangeInterpolation;
 import com.functionapproximation.service.NewtonInterpolation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
 
 import java.util.List;
 
@@ -26,9 +29,6 @@ public class InterpolationController {
     private InputData inputData;
     private final LagrangeInterpolation lagrangeInterpolation = new LagrangeInterpolation();
     private final NewtonInterpolation newtonInterpolation = new NewtonInterpolation();
-
-    private List<Point> lastCurvePoints;
-    private String lastCurveName;
     private Timeline animationTimeline;
 
     @FXML private void initialize() {
@@ -61,6 +61,12 @@ public class InterpolationController {
             buildDividedDiffTable(points.size(), result.getDividedDifferencesTable());
             dividedDifferencesPane.setVisible(true);
         }
+
+        Platform.runLater(() -> {
+            XYChart.Series<Number, Number> pointsSeries =
+                    interpolationChart.getData().get(interpolationChart.getData().size() - 1);
+            addPopoverToSeries(pointsSeries);
+        });
     }
 
     @FXML private void onAnimate() {
@@ -110,8 +116,37 @@ public class InterpolationController {
                     if (data.getNode() != null) data.getNode().setVisible(false);
                 }
             }
+            Platform.runLater(() -> {
+                XYChart.Series<Number, Number> pointsSeries =
+                        interpolationChart.getData().get(interpolationChart.getData().size() - 1);
+                addPopoverToSeries(pointsSeries);
+            });
         });
         animationTimeline.play();
+    }
+
+    private void addPopoverToSeries(XYChart.Series<Number, Number> series) {
+        for (XYChart.Data<Number, Number> data : series.getData()) {
+            Node node = data.getNode();
+            if (node == null) continue;
+
+            PopOver popOver = new PopOver();
+            popOver.setDetachable(false);
+            popOver.setAutoHide(true);
+            popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
+
+            Label content = new Label(
+                    String.format("x = %.4f\ny = %.4f",
+                            data.getXValue().doubleValue(),
+                            data.getYValue().doubleValue())
+            );
+            content.setStyle("-fx-padding: 6 10 6 10; -fx-font-size: 13px;");
+            popOver.setContentNode(content);
+
+            node.setOnMouseEntered(e -> {
+                if (!popOver.isShowing()) popOver.show(node);
+            });
+        }
     }
 
     @SuppressWarnings("unchecked")

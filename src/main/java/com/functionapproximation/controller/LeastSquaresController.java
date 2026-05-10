@@ -13,10 +13,12 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
 
 import java.util.List;
 
@@ -61,10 +63,12 @@ public class LeastSquaresController {
 
         leastSquaresChart.getData().clear();
         addCurveSeries(result.getCurvePoints());
-        addPointsSeries(points);
+        addPointsSeries(points, result.getResiduals());
         fillCoefficientsTable(result.getCoefficients());
 
-        Platform.runLater(() -> fixLegendOrientation(leastSquaresChart));
+        Platform.runLater(() -> {
+            fixLegendOrientation(leastSquaresChart);
+        });
     }
 
     @FXML private void onAnimate() {
@@ -84,7 +88,7 @@ public class LeastSquaresController {
         animSeries.setName("МНК");
         leastSquaresChart.getData().add(animSeries);
 
-        addPointsSeries(points);
+        addPointsSeries(points, result.getResiduals());
         fillCoefficientsTable(result.getCoefficients());
 
         int[] index = {0};
@@ -105,9 +109,42 @@ public class LeastSquaresController {
                     if (data.getNode() != null) data.getNode().setVisible(false);
                 }
             }
-            Platform.runLater(() -> fixLegendOrientation(leastSquaresChart));
+            Platform.runLater(() -> {
+                fixLegendOrientation(leastSquaresChart);
+                XYChart.Series<Number, Number> pointsSeries =
+                        leastSquaresChart.getData().get(leastSquaresChart.getData().size() - 1);
+                addPopoverToSeries(pointsSeries, result.getResiduals());
+            });
         });
         animationTimeline.play();
+    }
+
+    private void addPopoverToSeries(XYChart.Series<Number, Number> series, double[] residuals) {
+        for (int i = 0; i < series.getData().size(); i++) {
+            XYChart.Data<Number, Number> data = series.getData().get(i);
+            Node node = data.getNode();
+            if (node == null) continue;
+
+            double residual = residuals[i];
+
+            PopOver popOver = new PopOver();
+            popOver.setDetachable(false);
+            popOver.setAutoHide(true);
+            popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
+
+            Label content = new Label(
+                    String.format("x = %.4f\ny = %.4f\nrᵢ = %.4f",
+                            data.getXValue().doubleValue(),
+                            data.getYValue().doubleValue(),
+                            residual)
+            );
+            content.setStyle("-fx-padding: 6 10 6 10; -fx-font-size: 13px;");
+            popOver.setContentNode(content);
+
+            node.setOnMouseEntered(e -> {
+                if (!popOver.isShowing()) popOver.show(node);
+            });
+        }
     }
 
     private void fillCoefficientsTable(double[] coefficients) {
@@ -117,7 +154,7 @@ public class LeastSquaresController {
         }
     }
 
-    private void addPointsSeries(List<Point> points) {
+    private void addPointsSeries(List<Point> points, double[] residuals) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName("Точки");
         for (Point p : points) {
@@ -125,6 +162,8 @@ public class LeastSquaresController {
         }
         leastSquaresChart.getData().add(series);
         series.getNode().setStyle("-fx-stroke: transparent;");
+
+        Platform.runLater(() -> addPopoverToSeries(series, residuals));
     }
 
     private void addCurveSeries(List<Point> curvePoints) {
