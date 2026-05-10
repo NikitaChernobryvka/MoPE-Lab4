@@ -11,19 +11,19 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      stylesheets="@../styles/global.css" styleClass="tab-content">
+      stylesheets="@../styles/global.css" styleClass="tab-content" fx:controller="com.functionapproximation.controller.ResidualsController">
     <Label styleClass="section-title">Діаграма залишків</Label>
 
     <HBox spacing="12">
-        <Button fx:id="updateButton" styleClass="button-primary">Оновити</Button>
+        <Button styleClass="button-primary" onAction="#onUpdate">Оновити</Button>
     </HBox>
 
     <BarChart fx:id="residualsChart" VBox.vgrow="ALWAYS">
         <xAxis>
-            <CategoryAxis fx:id="xAxis" label="Точки xi"/>
+            <CategoryAxis label="Точки xi"/>
         </xAxis>
         <yAxis>
-            <NumberAxis fx:id="yAxis" label="Залишок ri"/>
+            <NumberAxis label="Залишок ri"/>
         </yAxis>
     </BarChart>
 

@@ -31,7 +31,7 @@
                 </Tab>
 
                 <Tab text="Залишки">
-                    <fx:include source="ResidualsView.fxml"/>
+                    <fx:include fx:id="residuals" source="ResidualsView.fxml"/>
                 </Tab>
             </tabs>
 

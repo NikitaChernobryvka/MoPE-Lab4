@@ -10,6 +10,7 @@ public class MainController {
     @FXML private InputPointController inputPointController;
     @FXML private InterpolationController interpolationController;
     @FXML private LeastSquaresController leastSquaresController;
+    @FXML private ResidualsController residualsController;
 
     private final InputData inputData = new InputData();
 
@@ -17,6 +18,7 @@ public class MainController {
         inputPointController.setInputData(inputData);
         interpolationController.setInputData(inputData);
         leastSquaresController.setInputData(inputData);
+        residualsController.setInputData(inputData);
     }
 
     public InputData getInputData() {
