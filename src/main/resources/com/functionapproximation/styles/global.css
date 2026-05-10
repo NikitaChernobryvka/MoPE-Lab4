@@ -101,3 +101,13 @@
     -fx-text-fill: #e05c5c;
     -fx-font-size: 13px;
 }
+
+.default-color0. chart-line-symbol {
+    -fx-background-radius: 7px;
+    -fx-padding: 7px;
+}
+
+.default-color1. chart-line-symbol {
+    -fx-background-radius: 7px;
+    -fx-padding: 7px;
+}

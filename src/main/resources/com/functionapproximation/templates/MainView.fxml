@@ -8,7 +8,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            stylesheets="@../styles/global.css">
+            stylesheets="@../styles/global.css"
+            fx:controller="com.functionapproximation.controller.MainController">
     <top>
         <Label styleClass="app-title" BorderPane.alignment="CENTER">Апроксимація функцій методами інтерполяції та МНК</Label>
     </top>
@@ -18,11 +19,11 @@
 
             <tabs>
                 <Tab text="Введення точок">
-                    <fx:include source="InputPointView.fxml"/>
+                    <fx:include fx:id="inputPoint" source="InputPointView.fxml"/>
                 </Tab>
 
                 <Tab text="Інтерполяція">
-                    <fx:include source="InterpolationView.fxml"/>
+                    <fx:include fx:id="interpolation" source="InterpolationView.fxml"/>
                 </Tab>
 
                 <Tab text="МНК">

@@ -8,7 +8,8 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            stylesheets="@../styles/global.css" styleClass="tab-content">
+            stylesheets="@../styles/global.css" styleClass="tab-content"
+            fx:controller="com.functionapproximation.controller.InputPointController">
     <Label styleClass="section-title">Введення точок</Label>
 
     <HBox spacing="12" alignment="CENTER_LEFT">
@@ -16,7 +17,7 @@
         <TextField fx:id="xField" promptText="Введіть x"/>
         <Label styleClass="input-label">y:</Label>
         <TextField fx:id="yField" promptText="Введіть y"/>
-        <Button fx:id="addButton" styleClass="button-primary">Додати</Button>
+        <Button onAction="#onAddPoint" styleClass="button-primary">Додати</Button>
     </HBox>
 
     <HBox spacing="12" alignment="CENTER_LEFT">
@@ -36,8 +37,8 @@
     </TableView>
 
     <HBox spacing="12">
-        <Button fx:id="deleteButton" styleClass="button-secondary">Видалити обрану</Button>
-        <Button fx:id="clearButton" styleClass="button-warning">Очистити всі</Button>
+        <Button styleClass="button-secondary" onAction="#onDeletePoint">Видалити обрану</Button>
+        <Button styleClass="button-warning" onAction="#onClearPoints">Очистити всі</Button>
     </HBox>
 
     <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>

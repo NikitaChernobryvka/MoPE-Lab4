@@ -10,7 +10,8 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      stylesheets="@../styles/global.css" styleClass="tab-content">
+      stylesheets="@../styles/global.css" styleClass="tab-content"
+      fx:controller="com.functionapproximation.controller.InterpolationController">
     <Label styleClass="section-title">Інтерполяція</Label>
 
     <fx:define>
@@ -21,8 +22,8 @@
         <Label styleClass="input-label">Метод:</Label>
         <RadioButton text="Лагранж" fx:id="lagrangeRadio" toggleGroup="$methodToggleGroup" selected="true"/>
         <RadioButton text="Ньютон" fx:id="newtonRadio" toggleGroup="$methodToggleGroup"/>
-        <Button fx:id="calculateButton" styleClass="button-primary">Обчислити</Button>
-        <Button fx:id="animateButton" styleClass="button-secondary">Анімація</Button>
+        <Button styleClass="button-primary" onAction="#onCalculate">Обчислити</Button>
+        <Button styleClass="button-secondary">Анімація</Button>
     </HBox>
 
     <LineChart fx:id="interpolationChart" VBox.vgrow="ALWAYS">
