@@ -16,14 +16,15 @@
 
     <HBox spacing="12">
         <Button styleClass="button-primary" onAction="#onUpdate">Оновити</Button>
+        <Button styleClass="button-secondary" onAction="#onAnimate">Оновити з анімацією</Button>
     </HBox>
 
     <BarChart fx:id="residualsChart" VBox.vgrow="ALWAYS">
         <xAxis>
-            <CategoryAxis label="Точки xi"/>
+            <CategoryAxis fx:id="xAxis" label="Точки xi"/>
         </xAxis>
         <yAxis>
-            <NumberAxis label="Залишок ri"/>
+            <NumberAxis fx:id="yAxis" label="Залишок ri"/>
         </yAxis>
     </BarChart>
 

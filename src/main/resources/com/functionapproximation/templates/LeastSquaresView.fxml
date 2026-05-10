@@ -16,7 +16,7 @@
 
     <HBox spacing="12">
         <Button styleClass="button-primary" onAction="#onCalculate">Обчислити</Button>
-        <Button styleClass="button-secondary">Анімація</Button>
+        <Button styleClass="button-secondary" onAction="#onAnimate">Обчислити з анімацією</Button>
     </HBox>
 
     <LineChart fx:id="leastSquaresChart" VBox.vgrow="ALWAYS">

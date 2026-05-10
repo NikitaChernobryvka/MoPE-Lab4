@@ -4,12 +4,15 @@ import com.functionapproximation.model.InputData;
 import com.functionapproximation.model.LeastSquaresResult;
 import com.functionapproximation.model.Point;
 import com.functionapproximation.service.LeastSquaresApprox;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class ResidualsController {
 
     private InputData inputData;
     private final LeastSquaresApprox approximator = new LeastSquaresApprox();
+    private Timeline animationTimeline;
 
     @FXML private void initialize() {
         residualsChart.setAnimated(false);
@@ -51,14 +55,55 @@ public class ResidualsController {
         List<Point> points = inputData.getPoints();
         if (points.size() < 2) return;
 
-        LeastSquaresResult result = approximator.approximate(points, inputData.getDegree());
+        if (animationTimeline != null) animationTimeline.stop();
 
+        LeastSquaresResult result = approximator.approximate(points, inputData.getDegree());
         buildChart(points, result);
         buildTable(points, result);
     }
 
+    @FXML private void onAnimate() {
+        List<Point> points = inputData.getPoints();
+        if (points.size() < 2) return;
+
+        if (animationTimeline != null) animationTimeline.stop();
+
+        LeastSquaresResult result = approximator.approximate(points, inputData.getDegree());
+        double[] residuals = result.getResiduals();
+
+        residualsChart.getData().clear();
+        residualsChart.setAnimated(false);
+        residualsTable.getItems().clear();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        residualsChart.getData().add(series);
+
+        double[][] tableRows = new double[points.size()][4];
+        for (int i = 0; i < points.size(); i++) {
+            double xi = points.get(i).getX();
+            double yi = points.get(i).getY();
+            double yHat = yi - residuals[i];
+            tableRows[i] = new double[]{xi, yi, yHat, residuals[i]};
+        }
+
+        int[] index = {0};
+        animationTimeline = new Timeline(
+                new KeyFrame(Duration.millis(800), e -> {
+                    if (index[0] < points.size()) {
+                        String label = String.format("%.2f", points.get(index[0]).getX());
+                        series.getData().add(new XYChart.Data<>(label, residuals[index[0]]));
+                        residualsTable.getItems().add(tableRows[index[0]]);
+                        index[0]++;
+                    }
+                })
+        );
+        animationTimeline.setCycleCount(points.size());
+        animationTimeline.play();
+    }
+
     private void buildChart(List<Point> points, LeastSquaresResult result) {
         residualsChart.getData().clear();
+        residualsChart.setAnimated(false);
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         double[] residuals = result.getResiduals();
