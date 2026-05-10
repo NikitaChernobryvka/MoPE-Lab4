@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../styles/global.css" styleClass="tab-content">
+    <Label styleClass="section-title">Метод найменших квадратів</Label>
+
+    <HBox spacing="12">
+        <Button fx:id="calculateButton" styleClass="button-primary">Обчислити</Button>
+        <Button fx:id="animateButton" styleClass="button-secondary">Анімація</Button>
+    </HBox>
+
+    <LineChart fx:id="leastSquaresChart" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <NumberAxis fx:id="xAxis" label="x"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="y"/>
+        </yAxis>
+    </LineChart>
+
+    <TitledPane text="Коефіцієнти полінома">
+        <TableView fx:id="coefficientsTable" prefHeight="150">
+            <columns>
+                <TableColumn fx:id="coeffIndexColumn" text="i" prefWidth="80"/>
+                <TableColumn fx:id="coeffValueColumn" text="ai" prefWidth="300"/>
+            </columns>
+            <placeholder>
+                <Label>Натисніть Обчислити для отримання коефіцієнтів</Label>
+            </placeholder>
+        </TableView>
+    </TitledPane>
+</VBox>

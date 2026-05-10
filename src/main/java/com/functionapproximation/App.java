@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class App extends Application {
     public void start (Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/functionapproximation/templates/TempView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/functionapproximation/templates/MainView.fxml"));
 
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

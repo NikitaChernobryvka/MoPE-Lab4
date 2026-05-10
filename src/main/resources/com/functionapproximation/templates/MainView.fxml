@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../styles/global.css">
+    <top>
+        <Label styleClass="app-title" BorderPane.alignment="CENTER">Апроксимація функцій методами інтерполяції та МНК</Label>
+    </top>
+
+    <center>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+
+            <tabs>
+                <Tab text="Введення точок">
+                    <fx:include source="InputPointView.fxml"/>
+                </Tab>
+
+                <Tab text="Інтерполяція">
+                    <fx:include source="InterpolationView.fxml"/>
+                </Tab>
+
+                <Tab text="МНК">
+                    <fx:include source="LeastSquaresView.fxml"/>
+                </Tab>
+
+                <Tab text="Залишки">
+                    <fx:include source="ResidualsView.fxml"/>
+                </Tab>
+            </tabs>
+
+        </TabPane>
+    </center>
+</BorderPane>

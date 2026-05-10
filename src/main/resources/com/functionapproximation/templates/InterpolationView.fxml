@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../styles/global.css" styleClass="tab-content">
+    <Label styleClass="section-title">Інтерполяція</Label>
+
+    <fx:define>
+        <ToggleGroup fx:id="methodToggleGroup"/>
+    </fx:define>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label styleClass="input-label">Метод:</Label>
+        <RadioButton text="Лагранж" fx:id="lagrangeRadio" toggleGroup="$methodToggleGroup" selected="true"/>
+        <RadioButton text="Ньютон" fx:id="newtonRadio" toggleGroup="$methodToggleGroup"/>
+        <Button fx:id="calculateButton" styleClass="button-primary">Обчислити</Button>
+        <Button fx:id="animateButton" styleClass="button-secondary">Анімація</Button>
+    </HBox>
+
+    <LineChart fx:id="interpolationChart" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <NumberAxis fx:id="xAxis" label="x"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="y"/>
+        </yAxis>
+    </LineChart>
+
+    <TitledPane fx:id="dividedDifferencesPane" text="Таблиця поділених різниць" expanded="false">
+        <TableView fx:id="dividedDifferencesTable" prefHeight="200">
+            <placeholder>
+                <Label>Оберіть метод Ньютона та натисніть "Обчислити"</Label>
+            </placeholder>
+        </TableView>
+    </TitledPane>
+</VBox>

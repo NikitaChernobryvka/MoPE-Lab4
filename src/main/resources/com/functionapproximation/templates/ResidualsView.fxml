@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../styles/global.css" styleClass="tab-content">
+    <Label styleClass="section-title">Діаграма залишків</Label>
+
+    <HBox spacing="12">
+        <Button fx:id="updateButton" styleClass="button-primary">Оновити</Button>
+    </HBox>
+
+    <BarChart fx:id="residualsChart" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" label="Точки xi"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Залишок ri"/>
+        </yAxis>
+    </BarChart>
+
+    <TitledPane text="Таблиця залишків">
+        <TableView fx:id="residualsTable" prefHeight="180">
+            <columns>
+                <TableColumn fx:id="pointColumn" text="xi" prefWidth="150"/>
+                <TableColumn fx:id="actualColumn" text="yi" prefWidth="150"/>
+                <TableColumn fx:id="calculatedColumn" text="ŷi" prefWidth="150"/>
+                <TableColumn fx:id="residualColumn" text="ri = yi - ŷi" prefWidth="150"/>
+            </columns>
+            <placeholder>
+                <Label>Спочатку обчисліть МНК на вкладці МНК</Label>
+            </placeholder>
+        </TableView>
+    </TitledPane>
+</VBox>

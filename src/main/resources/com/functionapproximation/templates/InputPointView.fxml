@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../styles/global.css" styleClass="tab-content">
+    <Label styleClass="section-title">Введення точок</Label>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label styleClass="input-label">x:</Label>
+        <TextField fx:id="xField" promptText="Введіть x"/>
+        <Label styleClass="input-label">y:</Label>
+        <TextField fx:id="yField" promptText="Введіть y"/>
+        <Button fx:id="addButton" styleClass="button-primary">Додати</Button>
+    </HBox>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label styleClass="input-label">Ступінь полінома МНК (m):</Label>
+        <ComboBox fx:id="degreeComboBox"/>
+    </HBox>
+
+    <TableView fx:id="pointsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="indexColumn" text="№" prefWidth="60"/>
+            <TableColumn fx:id="xColumn" text="x" prefWidth="200"/>
+            <TableColumn fx:id="yColumn" text="y" prefWidth="200"/>
+        </columns>
+        <placeholder>
+            <Label>Точки відсутні. Додайте точки вище.</Label>
+        </placeholder>
+    </TableView>
+
+    <HBox spacing="12">
+        <Button fx:id="deleteButton" styleClass="button-secondary">Видалити обрану</Button>
+        <Button fx:id="clearButton" styleClass="button-warning">Очистити всі</Button>
+    </HBox>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+</VBox>
