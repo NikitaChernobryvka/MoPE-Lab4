@@ -10,20 +10,21 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      stylesheets="@../styles/global.css" styleClass="tab-content">
+      stylesheets="@../styles/global.css" styleClass="tab-content"
+      fx:controller="com.functionapproximation.controller.LeastSquaresController">
     <Label styleClass="section-title">Метод найменших квадратів</Label>
 
     <HBox spacing="12">
-        <Button fx:id="calculateButton" styleClass="button-primary">Обчислити</Button>
-        <Button fx:id="animateButton" styleClass="button-secondary">Анімація</Button>
+        <Button styleClass="button-primary" onAction="#onCalculate">Обчислити</Button>
+        <Button styleClass="button-secondary">Анімація</Button>
     </HBox>
 
     <LineChart fx:id="leastSquaresChart" VBox.vgrow="ALWAYS">
         <xAxis>
-            <NumberAxis fx:id="xAxis" label="x"/>
+            <NumberAxis label="x"/>
         </xAxis>
         <yAxis>
-            <NumberAxis fx:id="yAxis" label="y"/>
+            <NumberAxis label="y"/>
         </yAxis>
     </LineChart>
 

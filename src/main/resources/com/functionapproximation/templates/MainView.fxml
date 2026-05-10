@@ -27,7 +27,7 @@
                 </Tab>
 
                 <Tab text="МНК">
-                    <fx:include source="LeastSquaresView.fxml"/>
+                    <fx:include fx:id="leastSquares" source="LeastSquaresView.fxml"/>
                 </Tab>
 
                 <Tab text="Залишки">

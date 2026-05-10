@@ -111,3 +111,11 @@
     -fx-background-radius: 7px;
     -fx-padding: 7px;
 }
+
+.chart-legend {
+    -fx-orientation: horizontal;
+}
+
+.chart-legend-item {
+    -fx-padding: 0 8 0 0;
+}

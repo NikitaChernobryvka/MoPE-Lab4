@@ -9,12 +9,14 @@ public class MainController {
     @FXML private TabPane tabPane;
     @FXML private InputPointController inputPointController;
     @FXML private InterpolationController interpolationController;
+    @FXML private LeastSquaresController leastSquaresController;
 
     private final InputData inputData = new InputData();
 
     @FXML private void initialize() {
         inputPointController.setInputData(inputData);
         interpolationController.setInputData(inputData);
+        leastSquaresController.setInputData(inputData);
     }
 
     public InputData getInputData() {
