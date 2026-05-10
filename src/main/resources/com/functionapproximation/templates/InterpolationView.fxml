@@ -23,7 +23,7 @@
         <RadioButton text="Лагранж" fx:id="lagrangeRadio" toggleGroup="$methodToggleGroup" selected="true"/>
         <RadioButton text="Ньютон" fx:id="newtonRadio" toggleGroup="$methodToggleGroup"/>
         <Button styleClass="button-primary" onAction="#onCalculate">Обчислити</Button>
-        <Button styleClass="button-secondary">Анімація</Button>
+        <Button styleClass="button-secondary" onAction="#onAnimate">Обчислити з анімацією</Button>
     </HBox>
 
     <LineChart fx:id="interpolationChart" VBox.vgrow="ALWAYS">
